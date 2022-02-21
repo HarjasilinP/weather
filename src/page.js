@@ -1,6 +1,6 @@
-
 import React from 'react';
 import {
+  FlatList,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -9,25 +9,13 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
+import data from './Indiancities.json';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-const page= () => {
-
-  return (
-    <View>
-
-    </View>
-  );
+const page = () => {
+  console.log('data', data);
+  return <View></View>;
 };
 
-const styles = StyleSheet.create({
-  
-});
+const styles = StyleSheet.create({});
 
 export default page;
