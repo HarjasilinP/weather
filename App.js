@@ -26,11 +26,6 @@ const App = () => {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
-          name="page"
-          component={page}
-          options={{title: 'page', headerShown: false}}
-        />
-        <Stack.Screen
           name="Search"
           component={Search}
           options={{title: 'Search', headerShown: false}}
