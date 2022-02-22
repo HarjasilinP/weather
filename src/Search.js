@@ -18,9 +18,9 @@ const Search = () => {
     var filteredArray = data.filter(str => {
       return str.city === text;
     });
+    setSearchedItems(filteredArray);
     console.log('filteredArray', filteredArray);
   };
-  // console.log(data);
   return (
     <View>
       <Text>Search</Text>
