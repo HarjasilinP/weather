@@ -6,18 +6,21 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  useColorScheme,
+  FlatList,
   View,
 } from 'react-native';
 import data from './Indiancities.json';
 const Search = () => {
   const [search, setSearch] = useState('');
-  const [searchedItems, setSearchedItems] = useState([]);
+  const [searchedItems, setSearchedItems] = useState(data);
   const searchItem = text => {
     setSearch(text);
-    console.log(text);
+    var filteredArray = data.filter(str => {
+      return str.city === text;
+    });
+    setSearchedItems(filteredArray);
+    console.log('filteredArray', filteredArray);
   };
-  console.log(data);
   return (
     <View>
       <Text>Search</Text>
@@ -28,6 +31,17 @@ const Search = () => {
         onChangeText={text => searchItem(text)}
       />
       <Text>{search}</Text>
+      <FlatList
+        data={searchedItems}
+        keyExtractor={item => item.id}
+        renderItem={({item, index}) => {
+          return (
+            <View key={index}>
+              <Text>{item.city}</Text>
+            </View>
+          );
+        }}
+      />
     </View>
   );
 };
