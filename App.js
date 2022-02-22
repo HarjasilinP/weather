@@ -1,4 +1,3 @@
-
 import React from 'react';
 import {
   SafeAreaView,
@@ -17,33 +16,30 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import page from './src/page';
-import scan from './src/scan';
+import Search from './src/Search';
 const Stack = createNativeStackNavigator();
-const App= () => {
-
+const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
           name="page"
           component={page}
-          options={{ title: 'page' ,headerShown:false}}
+          options={{title: 'page', headerShown: false}}
         />
         <Stack.Screen
-          name="scan"
-          component={scan}
-          options={{ title: 'scan' ,headerShown:false}}
+          name="Search"
+          component={Search}
+          options={{title: 'Search', headerShown: false}}
         />
       </Stack.Navigator>
     </NavigationContainer>
   );
 };
 
-const styles = StyleSheet.create({
-  
-});
+const styles = StyleSheet.create({});
 
 export default App;
