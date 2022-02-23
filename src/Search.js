@@ -24,7 +24,7 @@ const Search = () => {
   };
 
   const getTemp = (lat, long, city) => {
-    let temp = {};
+    // let temp = {};
     console.log(lat, long, city);
     var itemIndex = data.findIndex(str => {
       return city === str.city;
@@ -39,13 +39,10 @@ const Search = () => {
     )
       .then(response => response.json())
       .then(json => {
-        temp = json;
-        data[itemIndex].temp = (json.main.temp - 273.15).toFixed(2);
+       var temp = (json.main.temp - 273.15).toFixed(2);
+        // data[itemIndex].temp = (json.main.temp - 273.15).toFixed(2);
+        alert('Temprature is '+temp)
       });
-
-    // console.log(itemIndex, temp);
-    // data[itemIndex].temp = 38;
-    // setSearchedItems(data);
   };
   useEffect(() => {
     setSearchedItems(data);
@@ -56,7 +53,7 @@ const Search = () => {
         <TextInput
           placeholder="Search Cities"
           value={search}
-          style={{borderColor: '#000', borderWidth: 0.5}}
+          style={styles.text_input}
           onChangeText={text => searchItem(text)}
         />
         <FlatList
@@ -65,22 +62,15 @@ const Search = () => {
           renderItem={({item, index}) => {
             return (
               <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  backgroundColor: 'white',
-                  paddingHorizontal: 10,
-                  paddingVertical: 10,
-                  marginTop: 5,
-                }}
+                style={styles.flat}
                 key={index}>
-                <Text style={{color: 'black', fontSize: 15}}>{item.city}</Text>
+                <Text style={styles.city}>{item.city}</Text>
                 {/* <Text>{item.temp ? item.temp : 'none'}</Text> */}
                 {!item.temp ? (
                   <TouchableOpacity
                     onPress={() => getTemp(item.lat, item.lng, item.city)}
-                    style={{backgroundColor: 'red', padding: 4}}>
-                    <Text style={{color: 'white'}}>View Temp</Text>
+                    style={styles.touch}>
+                    <Text style={styles.touch_text}>View Temp</Text>
                   </TouchableOpacity>
                 ) : (
                   <Text>{item.temp}</Text>
@@ -94,6 +84,30 @@ const Search = () => {
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  touch:{
+    backgroundColor: 'red',
+     padding: 4
+    },
+touch_text:{
+  color: 'white'
+},
+city:{
+  color: 'black',
+   fontSize: 15
+  },
+  flat:{
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    backgroundColor: 'white',
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    marginTop: 5,
+  },
+  text_input:{
+    borderColor: '#000', 
+    borderWidth: 0.5
+  },
+});
 
 export default Search;
