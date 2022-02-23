@@ -19,6 +19,7 @@ import {
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Search from './src/Search';
+import Weather from './src/Weather';
 const Stack = createNativeStackNavigator();
 const App = () => {
   return (
@@ -28,6 +29,11 @@ const App = () => {
           name="Search"
           component={Search}
           options={{title: 'Search', headerShown: false}}
+        />
+        <Stack.Screen
+          name="Weather"
+          component={Weather}
+          options={{title: 'Weather', headerShown: false}}
         />
       </Stack.Navigator>
     </NavigationContainer>
