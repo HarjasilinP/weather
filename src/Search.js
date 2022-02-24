@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import data from './Indiancities.json';
+import AntDesign from "react-native-vector-icons/AntDesign"
 const Search = (props) => {
   const [search, setSearch] = useState('');
   const [searchedItems, setSearchedItems] = useState(data);
@@ -36,17 +37,35 @@ const Search = (props) => {
         props.navigation.navigate('Weather', { item: temp, city: city })
       });
   };
+  const clearSearch=()=>{
+    setSearch("")
+    setSearchedItems(data)
+  }
   return (
     <SafeAreaView>
       <View style={{ margin: 10 }}>
+        <View style={styles.text_input}>
         <TextInput
           placeholder="Search Cities"
           value={search}
-          style={styles.text_input}
+          
           onChangeText={text => searchItem(text)}
-        />
+        >
+          
+          </TextInput>
+          {search.length===0?(null):(
+          <AntDesign onPress={()=>clearSearch()}
+          name='close'
+          size={20}>
+          </AntDesign>
+          )}
+          </View>
         <FlatList
-          data={searchedItems}
+          data={searchedItems.sort(function(a, b){
+            if(a.city < b.city) { return -1; }
+            if(a.city > b.city) { return 1; }
+            return 0;
+        })}
           keyExtractor={item => item.city}
           renderItem={({ item, index }) => {
             return (
@@ -58,7 +77,7 @@ const Search = (props) => {
                   <TouchableOpacity
                     onPress={() => getTemp(item.lat, item.lng, item.city)}
                     style={styles.touch}>
-                    <Text style={styles.touch_text}>View Temp</Text>
+                    <Text style={styles.touch_text}>View</Text>
                   </TouchableOpacity>
                 ) : (
                   <Text>{item.temp}</Text>
@@ -74,15 +93,18 @@ const Search = (props) => {
 
 const styles = StyleSheet.create({
   touch: {
-    backgroundColor: 'red',
-    padding: 4
+    backgroundColor: '#B6D0E2',
+    padding: 8,
+    borderRadius:25
   },
   touch_text: {
-    color: 'white'
+    color: 'black',
+    
   },
   city: {
     color: 'black',
-    fontSize: 15
+    fontSize: 15,
+    alignSelf:'center'
   },
   flat: {
     flexDirection: 'row',
@@ -90,11 +112,18 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     paddingHorizontal: 10,
     paddingVertical: 10,
-    marginTop: 5,
+    marginTop: 8,
+    borderRadius:10,
+    elevation:5
   },
   text_input: {
     borderColor: '#000',
-    borderWidth: 0.5
+    borderWidth: 0.5,
+    borderRadius:50,
+    paddingHorizontal:10,
+    flexDirection:'row',
+    justifyContent:'space-between',
+    alignItems:'center'
   },
 });
 
